@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Bug Tracker App</title>
+</head>
+
+<body>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="/" style="color: bluewhite;">Home</a>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="/logout/" style="color: bluewhite;">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="/login/" style="color: bluewhite;">Login</a>
+        </li>
+        {% endif %}
+    </ul>
+    <div class="container">
+        <form action="" method="POST" style="color: bluewhite;">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" style="color: bluewhite;">Submit</button>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

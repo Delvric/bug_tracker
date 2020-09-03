@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Bug Tracker App</title>
+</head>
+
+<body>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="/" style="color: orangered;">Home</a>
+        </li>
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="/logout/" style="color: orangered;">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="/login/" style="color: orangered;">Login</a>
+        </li>
+        {% endif %}
+    </ul>
+    <ul class="nav justify-content-end" style="position: absolute; top: 3px; right: 3px;">
+        <li class="nav-item">
+            <button class="btn btn-secondary"><a class="nav-link" href="/ticket/submit/"
+                    style="color: orangered;">Submit A New Ticket</a></button>
+        </li>
+    </ul>
+    <br>
+    <br>
+    <div class="container">
+        <h1 style="color: bluewhite;">{{ current_user.username }}'s Tickets</h1>
+        <h4 style="color: bluewhite;">User Name: {{ current_user.username}}</h4>
+        <h4 style="color: bluewhite;">Position:</h4>
+        <br>
+        <br>
+        <div class="card">
+            <h5 class="card-header bg-warning mg-3" style="color: rgb(74, 75, 77)">Assigned </h5>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Assign To</th>
+                            <th scope="col">Reported By</th>
+                            <th scope="col">Ticket Age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ticket in assigned_tickets %}
+                        <tr>
+                            <th scope="row">{{ticket.id}}</th>
+                            <td> <a href="/ticket/{{ticket.id}}" class="card-link"
+                                    style="color: blue;">{{ ticket.title }}</a></td>
+                            <td><a href="/user/{{ticket.assignedTo}}" class="card-link"
+                                    style="color: blue;">{{ ticket.assignedTo }}</a></td>
+                            <td><a href="/user/{{ticket.filedBy.username}}" class="card-link"
+                                    style="color: blue;">{{ ticket.filedBy }}</a></td>
+                            <td>{{ ticket.age }} day(s)</td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="card">
+            <h5 class="card-header bg-primary mg-3" style="color: rgb(74, 75, 77)">Filed</h5>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Assign To</th>
+                            <th scope="col">Reported By</th>
+                            <th scope="col">Ticket Age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ticket in filed_tickets %}
+                        <tr>
+                            <th scope="row">{{ticket.id}}</th>
+                            <td> <a href="/ticket/{{ticket.id}}" class="card-link"
+                                    style="color: blue;">{{ ticket.title }}</a>
+                            </td>
+                            <td><a href="/user/{{ticket.assignedTo}}" class="card-link"
+                                    style="color: blue;">{{ ticket.assignedTo }}</a></td>
+                            <td><a href="/user/{{ticket.filedBy.username}}" class="card-link"
+                                    style="color: blue;">{{ ticket.filedBy }}</a></td>
+                            <td>{{ ticket.date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="card">
+            <h5 class="card-header bg-success mg-3" style="color: rgb(74, 75, 77)">Completed</h5>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Assign To</th>
+                            <th scope="col">Reported By</th>
+                            <th scope="col">Ticket Age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ticket in completed_tickets %}
+                        <tr>
+                            <th scope="row">{{ticket.id}}</th>
+                            <td> <a href="/ticket/{{ticket.id}}" class="card-link"
+                                    style="color: blue;">{{ ticket.title }}</a>
+                            </td>
+                            <td><a href="/user/{{ticket.assignedTo}}" class="card-link"
+                                    style="color: blue;">{{ ticket.assignedTo }}</a></td>
+                            <td><a href="/user/{{ticket.filedBy.username}}" class="card-link"
+                                    style="color: blue;">{{ ticket.filedBy }}</a></td>
+                            <td>{{ ticket.date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
